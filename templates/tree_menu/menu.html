@@ -1,0 +1,11 @@
+<ul>
+    {% for tag in tags %}
+        <li>{{ tag.name }}</li>
+        {% if tag.children.exists %}
+           {% with tag.children.all as tags %}
+                {% include "tree_menu/menu.html" %}
+            {% endwith %}    
+        {% endif %}
+    {% endfor %}
+    </ul>
+    
