@@ -1,10 +1,13 @@
-from django.shortcuts import render
-from .models import Tag
+from django.shortcuts import render, get_object_or_404
+
+from .models import Item
 
 
-def menu(request):
-    tags = Tag.objects.all()
-    context = {
-        'tags': tags,
-    }
+def index(request):
+    return render(request, 'tree_menu/index.html')
+
+
+def menu(request, slug):
+    menu = get_object_or_404(Item, slug=slug)
+    context = {'menu': menu}
     return render(request, 'tree_menu/menu.html', context)

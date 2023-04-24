@@ -1,11 +1,23 @@
-<ul>
-    {% for tag in tags %}
-        <li>{{ tag.name }}</li>
-        {% if tag.children.exists %}
-           {% with tag.children.all as tags %}
-                {% include "tree_menu/menu.html" %}
-            {% endwith %}    
+{% comment %} <ol>
+  {% for item in items %}
+    <li> {{ item }} </li>
+      <ul>
+      {% for option in options %}
+        {% if option.parent == item %}
+          <li> {{ option }} </li>
         {% endif %}
-    {% endfor %}
-    </ul>
-    
+      {% endfor %}
+      </ul>
+  {% endfor %}
+</ol> {% endcomment %}
+
+<ol>
+  {% for item in items %}
+    {% if not item.parent %}
+      <li>
+        <a href="{% url 'tree_menu:menu' item.slug %}">{{ item }}</a> 
+         
+    </li>
+    {% endif %}
+  {% endfor %}
+</ol>
